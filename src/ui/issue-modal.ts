@@ -363,7 +363,7 @@ export class IssueCreateModal extends Modal {
             debugLog.log('Auto-filling from expressions...');
             
             // Parse frontmatter config
-            const config = MarkdownParser.parseNoteConfig(content);
+            const config = MarkdownParser.parseNoteConfig(this.app, this.file, content);
             debugLog.log('Parsed frontmatter config:', config);
             
             // Parse inline expressions with FIXED regex patterns

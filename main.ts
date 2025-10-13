@@ -63,7 +63,7 @@ export default class LinearPlugin extends Plugin {
         this.kanbanGenerator = new KanbanGenerator(this.app.vault, this.linearClient, this.settings);
         this.agendaGenerator = new AgendaGenerator(this.app.vault, this.linearClient, this.settings);
         this.commentMirror = new CommentMirror(this.app.vault, this.linearClient);
-        this.batchOperationManager = new BatchOperationManager(this.app.vault, this.linearClient, this.syncManager);
+        this.batchOperationManager = new BatchOperationManager(this.app, this.app.vault, this.linearClient, this.syncManager);
 
         // Initialize autocomplete if enabled        
         if (this.settings.autocompleteEnabled) {

@@ -1,6 +1,6 @@
 import { debugLog } from '../utils/debug';
 import { getFileByPath, getMdFilesFromFolder } from '../utils/file-utils';
-import { TFile, TFolder, Vault } from 'obsidian';
+import { TFile, TFolder, Vault, App } from 'obsidian';
 import { LinearNoteConfig, LinearIssue, LinearPluginSettings, SyncResult } from '../models/types';
 import { LinearClient } from '../api/linear-client';
 import { SyncManager } from '../sync/sync-manager';
@@ -318,6 +318,7 @@ export class CommentMirror {
 
 export class BatchOperationManager {
     constructor(
+        private app: App, 
         private vault: Vault,
         private linearClient: LinearClient,
         private syncManager: SyncManager
@@ -374,7 +375,7 @@ export class BatchOperationManager {
 
     private async createIssueFromFile(file: TFile): Promise<LinearIssue> {
         const content = await this.vault.read(file);
-        const config = MarkdownParser.parseNoteConfig(content);
+        const config = MarkdownParser.parseNoteConfig(this.app, file, content);
         const title = MarkdownParser.extractTitle(content);
         const description = MarkdownParser.convertToLinearDescription(content);
 

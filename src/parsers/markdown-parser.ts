@@ -1,3 +1,4 @@
+import { App, TFile, CachedMetadata } from 'obsidian';
 import { InlineTag, LinearNoteConfig } from '../models/types';
 
 export class MarkdownParser {
@@ -30,49 +31,27 @@ export class MarkdownParser {
         return tags.sort((a, b) => a.position.start - b.position.start);
     }
 
-    static parseNoteConfig(content: string): LinearNoteConfig {
+    static parseNoteConfig(app: App, file: TFile, content: string): LinearNoteConfig {
         const config: LinearNoteConfig = {};
         
-        // Parse frontmatter config
-        const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
-        if (frontmatterMatch) {
-            const frontmatter = frontmatterMatch[1];
+        // Parse frontmatter config using metadata cache
+        const cachedMetadata: CachedMetadata | null = app.metadataCache.getFileCache(file);
+        
+        if (cachedMetadata?.frontmatter?.linear_config) {
+            const linearConfig = cachedMetadata.frontmatter.linear_config;
             
-            // Extract linear-specific config
-            const linearConfigMatch = frontmatter.match(/linear_config:\s*\n([\s\S]*?)(?=\n\w+:|$)/);
-            if (linearConfigMatch) {
-                const configText = linearConfigMatch[1];
-                
-                // Parse YAML-like config
-                const workspace = configText.match(/\s*workspace:\s*(.+)/)?.[1]?.trim();
-                const team = configText.match(/\s*team:\s*(.+)/)?.[1]?.trim();
-                const project = configText.match(/\s*project:\s*(.+)/)?.[1]?.trim();
-                const assignee = configText.match(/\s*assignee:\s*(.+)/)?.[1]?.trim();
-                const priority = configText.match(/\s*priority:\s*(\d+)/)?.[1];
-                const autoSync = configText.match(/\s*autoSync:\s*(true|false)/)?.[1];
-                const template = configText.match(/\s*template:\s*(.+)/)?.[1]?.trim();
-                
-                if (workspace) config.workspace = workspace;
-                if (team) config.team = team;
-                if (project) config.project = project;
-                if (assignee) config.assignee = assignee;
-                if (priority) config.priority = parseInt(priority);
-                if (autoSync) config.autoSync = autoSync === 'true';
-                if (template) config.template = template;
-                
-                // Parse labels array
-                const labelsMatch = configText.match(/\s*labels:\s*\n((?:\s*-\s*.+\n)*)/);
-                if (labelsMatch) {
-                    const labels = labelsMatch[1]
-                        .split('\n')
-                        .filter(line => line.trim().startsWith('-'))
-                        .map(line => line.trim().substring(1).trim())
-                        .filter(Boolean);
-                    if (labels.length > 0) config.labels = labels;
-                }
+            if (linearConfig.workspace) config.workspace = linearConfig.workspace;
+            if (linearConfig.team) config.team = linearConfig.team;
+            if (linearConfig.project) config.project = linearConfig.project;
+            if (linearConfig.assignee) config.assignee = linearConfig.assignee;
+            if (linearConfig.priority !== undefined) config.priority = linearConfig.priority;
+            if (linearConfig.autoSync !== undefined) config.autoSync = linearConfig.autoSync;
+            if (linearConfig.template) config.template = linearConfig.template;
+            if (Array.isArray(linearConfig.labels) && linearConfig.labels.length > 0) {
+                config.labels = linearConfig.labels;
             }
         }
-
+        
         // Parse inline tags and merge with config
         const inlineTags = this.parseInlineTags(content);
         inlineTags.forEach(tag => {
@@ -94,7 +73,7 @@ export class MarkdownParser {
                     break;
             }
         });
-
+        
         return config;
     }
 
