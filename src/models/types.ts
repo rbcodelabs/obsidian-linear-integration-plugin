@@ -1,8 +1,16 @@
 import { TFile } from 'obsidian';
+export interface TeamSyncConfig {
+    teamId: string;
+    teamName: string;
+    syncFolder: string;
+    enabled: boolean;
+}
+
 export interface LinearPluginSettings {
     apiKey: string;
     teamId: string;
     syncFolder: string;
+    teamSyncConfigs?: TeamSyncConfig[];
     autoSync: boolean;
     autoSyncInterval: number; // minutes
     includeDescription: boolean;
