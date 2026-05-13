@@ -102,6 +102,9 @@
       "**/__tests__/**/*.ts",
       "**/?(*.)+(spec|test).ts"
     ],
+    "moduleNameMapper": {
+      "^obsidian$": "<rootDir>/tests/__mocks__/obsidian.ts"
+    },
     "collectCoverageFrom": [
       "src/**/*.ts",
       "!src/**/*.d.ts"

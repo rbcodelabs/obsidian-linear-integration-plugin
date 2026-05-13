@@ -38,8 +38,19 @@ A comprehensive Linear integration plugin for Obsidian that provides seamless bi
 
 ### Installation
 
-1. **Download**: Get the latest release from [GitHub Releases](https://github.com/casals/obsidian-linear-integration-plugin/releases)
-2. **Install**: Extract to `.obsidian/plugins/linear-integration/` in your vault
+#### Via BRAT (recommended)
+
+[BRAT](https://github.com/TfTHacker/obsidian42-brat) lets you install and auto-update beta plugins directly from GitHub.
+
+1. Install the **BRAT** plugin from the Obsidian Community Plugins directory
+2. Open BRAT settings and click **"Add Beta Plugin"**
+3. Enter: `rb-code-labs/obsidian-linear-integration-plugin`
+4. Click **Add Plugin** — BRAT installs it and keeps it updated automatically
+
+#### Manual install
+
+1. **Download**: Get the latest release from [GitHub Releases](https://github.com/rb-code-labs/obsidian-linear-integration-plugin/releases)
+2. **Install**: Copy `main.js`, `manifest.json`, and `styles.css` into `.obsidian/plugins/linear-integration/` in your vault
 3. **Enable**: Go to Settings → Community Plugins → Enable "Linear Integration"
 
 ### Setup
@@ -327,12 +338,12 @@ This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE)
 
 ## 📞 Support
 
-- **Issues**: [GitHub Issues](https://github.com/casals/obsidian-linear-integration-plugin/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/casals/obsidian-linear-integration-plugin/discussions)
+- **Issues**: [GitHub Issues](https://github.com/rb-code-labs/obsidian-linear-integration-plugin/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/rb-code-labs/obsidian-linear-integration-plugin/discussions)
 
 ## 🔄 Recent Updates
 
-### v1.0.0 - Major Release
+### v0.1.0 - Initial Release
 - ✅ **Enhanced Autocomplete**: Color-coded suggestions with hierarchical labels
 - ✅ **Auto-fill from Expressions**: Smart field population from note content  
 - ✅ **Dynamic Label Creation**: Automatically create non-existent labels
@@ -356,7 +367,7 @@ This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE)
 
 <div align="center">
 
-**[⭐ Star us on GitHub](https://github.com/casals/obsidian-linear-integration-plugin)** | **[🐛 Report Issues](https://github.com/casals/obsidian-linear-integration-plugin/issues)**
+**[⭐ Star us on GitHub](https://github.com/rb-code-labs/obsidian-linear-integration-plugin)** | **[🐛 Report Issues](https://github.com/rb-code-labs/obsidian-linear-integration-plugin/issues)**
 
 Made with ❤️ for the Obsidian and Linear communities
 
